@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile:  ./Dockerfile.local
     entrypoint: tail -f /dev/null
+    restart: always
     volumes:
       - ./:/app
     ports:
