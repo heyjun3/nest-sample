@@ -19,3 +19,24 @@ const l = lst.filter((i) => {
 
 console.log(l)
 console.log(lst)
+
+
+function isObject(value: unknown): value is object {
+    return typeof value === "object" && value !== null
+}
+
+const v: unknown = {a: 1, b: 2}
+
+if (isObject(v)) {
+    console.log(Object.keys(v))
+}
+
+function* generateNumbers() {
+    for(let i = 0; i < 10; i++){
+        yield i
+    }
+}
+
+for (const v of generateNumbers()) {
+    console.log(v)
+}
