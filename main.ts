@@ -48,6 +48,10 @@ type User = {
 
 function getUser(): Promise<User> {
     return new Promise((resolve) => {
-        const u: User = 
+        const u: User = {
+            name: 'taro',
+            age: 44,
+        }
+        resolve(u)
     })
 }
