@@ -40,3 +40,14 @@ function* generateNumbers() {
 for (const v of generateNumbers()) {
     console.log(v)
 }
+
+type User = {
+    name: string
+    age: number
+}
+
+function getUser(): Promise<User> {
+    return new Promise((resolve) => {
+        const u: User = 
+    })
+}
