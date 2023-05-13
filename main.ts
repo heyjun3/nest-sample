@@ -1,57 +1,54 @@
-
-
-const lst = [1, 2, 3, 4]
+const lst = [1, 2, 3, 4];
 for (const i of lst) {
-    console.log(i)
+  console.log(i);
 }
 
 lst.forEach((i) => {
-    console.log(i)
-})
+  console.log(i);
+});
 
 lst.map((i) => {
-    console.log(i * i)
-})
+  console.log(i * i);
+});
 
 const l = lst.filter((i) => {
-    return i % 2
-})
+  return i % 2;
+});
 
-console.log(l)
-console.log(lst)
-
+console.log(l);
+console.log(lst);
 
 function isObject(value: unknown): value is object {
-    return typeof value === "object" && value !== null
+  return typeof value === 'object' && value !== null;
 }
 
-const v: unknown = {a: 1, b: 2}
+const v: unknown = { a: 1, b: 2 };
 
 if (isObject(v)) {
-    console.log(Object.keys(v))
+  console.log(Object.keys(v));
 }
 
 function* generateNumbers() {
-    for(let i = 0; i < 10; i++){
-        yield i
-    }
+  for (let i = 0; i < 10; i++) {
+    yield i;
+  }
 }
 
 for (const v of generateNumbers()) {
-    console.log(v)
+  console.log(v);
 }
 
 type User = {
-    name: string
-    age: number
-}
+  name: string;
+  age: number;
+};
 
 function getUser(): Promise<User> {
-    return new Promise((resolve) => {
-        const u: User = {
-            name: 'taro',
-            age: 44,
-        }
-        resolve(u)
-    })
+  return new Promise((resolve) => {
+    const u: User = {
+      name: 'taro',
+      age: 44,
+    };
+    resolve(u);
+  });
 }
