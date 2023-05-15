@@ -1,3 +1,5 @@
+import { ConsoleLogger } from '@nestjs/common';
+
 const lst = [1, 2, 3, 4];
 for (const i of lst) {
   console.log(i);
@@ -89,3 +91,20 @@ console.log(r?.groups?.third);
 
 const s = '080-0000-9999';
 console.log(s.match(regexp1));
+
+type cat = typeof c;
+
+console.log(typeof c == 'object');
+
+function chooseRandomly<T>(v1: T, v2: T): T {
+  return Math.random() <= 0.5 ? v1 : v2;
+}
+
+function gen<A, B = A, C = B>(a: A, b: B, c: C) {
+  console.log(a);
+  console.log(b);
+  console.log(c);
+}
+
+gen<string, number>('aaa', 22, 999);
+gen<string>('a', 'aa', 'aaa');
