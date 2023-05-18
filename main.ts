@@ -108,3 +108,12 @@ function gen<A, B = A, C = B>(a: A, b: B, c: C) {
 
 gen<string, number>('aaa', 22, 999);
 gen<string>('a', 'aa', 'aaa');
+
+const sample: object = {
+  year: 1999,
+  motnh: 7,
+};
+
+const shallow: object = { ...sample };
+
+console.log(shallow);
