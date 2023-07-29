@@ -117,3 +117,20 @@ const sample: object = {
 const shallow: object = { ...sample };
 
 console.log(shallow);
+
+const add = (a: number) => {
+  return a + 1;
+};
+const sub = (a: number) => (b: number) => {
+  return a - b;
+};
+
+console.log([1, 2, 4].map(add));
+const re = [add, sub(2)].reduce(
+  (ac, fn) => {
+    return ac.map(fn);
+  },
+  [1, 2, 4],
+);
+
+console.log(re);
