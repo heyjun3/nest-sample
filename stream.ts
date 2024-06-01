@@ -26,10 +26,12 @@ const render = new Writable({
   },
 });
 
-src
-  .pipe(hashStream)
-  .pipe(render)
-  .on('finish', () => {
-    console.log(JSON.parse(Buffer.from(dst[0]).toString()));
-  });
-// pipeline(src, hashStream, render);
+// src
+//   .pipe(hashStream)
+//   .pipe(render)
+//   .on('finish', () => {
+//     console.log(JSON.parse(Buffer.from(dst[0]).toString()));
+//   });
+pipeline(src, hashStream, render, () => {
+  console.log(dst);
+});
