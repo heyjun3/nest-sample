@@ -18,3 +18,7 @@ type Author {
 type Query {
   author(id: Int!): Author!
 }
+
+type Mutation {
+  createAuthor: Author!
+}

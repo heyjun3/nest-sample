@@ -9,3 +9,18 @@ services:
       - ./:/app
     ports:
       - 8080:8080
+  
+  postgres:
+    image: postgres:16.3
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=sample
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - 5433:5432
+
+volumes:
+  pgdata:

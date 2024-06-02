@@ -5,6 +5,7 @@ import {
   Query,
   ResolveField,
   Parent,
+  Mutation,
 } from '@nestjs/graphql';
 
 import { Author } from './author.model';
@@ -19,8 +20,13 @@ export class AuthorsResolver {
   ) {}
 
   @Query(() => Author)
-  author(@Args('id', { type: () => Int }) id: number): Author {
-    return this.authsService.findOneById(id);
+  async author(@Args('id', { type: () => Int }) id: number): Promise<Author> {
+    return await this.authsService.findOneById(id);
+  }
+
+  @Mutation(() => Author)
+  async createAuthor(): Promise<Author> {
+    return await this.authsService.createAuthor();
   }
 
   @ResolveField()
