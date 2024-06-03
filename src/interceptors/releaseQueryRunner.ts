@@ -21,8 +21,11 @@ export class ReleaseQueryRunnerInterceptor implements NestInterceptor {
         if (this.queryRunner.isReleased) {
           return;
         }
-        console.warn('release query runner');
-        await this.queryRunner.release();
+
+        console.warn('interceptor context', context.getType());
+        if (context.getType<string>() !== 'graphql') {
+          await this.queryRunner.release();
+        }
       }),
     );
   }

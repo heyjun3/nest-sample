@@ -3,20 +3,22 @@
 # ------------------------------------------------------
 
 type Post {
-  id: Int!
+  id: String!
+  authorId: String!
   title: String!
   votes: Int
+  author: Author!
 }
 
 type Author {
-  id: Int!
+  id: String!
   firstName: String
   lastName: String
-  posts: [Post!]!
+  posts: [Post!]
 }
 
 type Query {
-  author(id: Int!): Author!
+  author(id: String!): Author!
 }
 
 type Mutation {
