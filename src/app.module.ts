@@ -2,7 +2,7 @@ import { Module, Scope } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthorsModule } from './authors/models/authors.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import {
   LoggingInterceptor,
   LoggingInterceptorV2,
@@ -14,6 +14,8 @@ import { LoggingPlugin } from './apollo/loggingPlugin';
 import { Author } from './authors/models/author.model';
 import { datasourceConfig } from './database/datasource';
 import { AuthorRepositoryModule } from './authors/models/authors.repository';
+import { Post } from './posts/models/post.model';
+import { ReleaseFilter } from './exceptionFilter/releaseFilter';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { AuthorRepositoryModule } from './authors/models/authors.repository';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         ...datasourceConfig,
-        entities: [Author],
+        entities: [Author, Post],
       }),
     }),
     AuthorsModule,
@@ -45,6 +47,11 @@ import { AuthorRepositoryModule } from './authors/models/authors.repository';
       provide: APP_INTERCEPTOR,
       scope: Scope.REQUEST,
       useClass: ReleaseQueryRunnerInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      scope: Scope.REQUEST,
+      useClass: ReleaseFilter,
     },
   ],
 })

@@ -20,7 +20,9 @@ export class AuthorsResolver {
   ) {}
 
   @Query(() => Author)
-  async author(@Args('id', { type: () => Int }) id: number): Promise<Author> {
+  async author(
+    @Args('id', { type: () => String }) id: string,
+  ): Promise<Author> {
     return await this.authsService.findOneById(id);
   }
 
@@ -29,9 +31,9 @@ export class AuthorsResolver {
     return await this.authsService.createAuthor();
   }
 
-  @ResolveField()
-  async posts(@Parent() author: Author) {
-    const { id } = author;
-    return this.postsService.findAll(id);
-  }
+  // @ResolveField()
+  // async post(@Parent() author: Author) {
+  //   const { id } = author;
+  //   return this.postsService.findAll(id);
+  // }
 }

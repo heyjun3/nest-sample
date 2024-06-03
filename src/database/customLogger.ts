@@ -28,7 +28,7 @@ export class CustomLogger extends AdvancedConsoleLogger {
       });
       logMessage.message = message;
     }
-
+    queryRunner && console.warn('data', queryRunner.data['aaa']);
     super.writeLog(level, logMessage, queryRunner);
   }
 }

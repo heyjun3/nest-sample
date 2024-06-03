@@ -6,7 +6,7 @@ import { Post } from './post.model';
 export class PostsService {
   private readonly posts: Post[] = [];
 
-  findAll(authorId: number): Post[] {
+  findAll(authorId: string): Post[] {
     return this.posts.filter((post) => post.id == authorId);
   }
 }
