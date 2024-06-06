@@ -1,6 +1,5 @@
 import { Global, Module, Scope } from '@nestjs/common';
 import { CONTEXT } from '@nestjs/graphql';
-import { query } from 'express';
 import { DataSource, QueryRunner } from 'typeorm';
 
 export const QUERY_RUNNER = 'QUERY_RUNNER';
