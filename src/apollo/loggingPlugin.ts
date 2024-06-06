@@ -28,9 +28,9 @@ export class LoggingPlugin implements ApolloServerPlugin {
           console.warn('already released query runner');
           return;
         }
-        console.warn('release query runner');
-        await queryRunner.release();
-        console.warn('Will send response');
+        // console.warn('release query runner');
+        // await queryRunner.release();
+        // console.warn('Will send response');
       },
     };
   }
