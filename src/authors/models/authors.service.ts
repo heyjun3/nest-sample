@@ -7,6 +7,21 @@ import { AUTHOR_REPOSITORY } from './authors.repository';
 import { Post } from 'src/posts/models/post.model';
 import { randomUUID } from 'crypto';
 
+const transactionManager = async <T>(
+  queryRunner: QueryRunner,
+  func: () => Promise<T>,
+) => {
+  try {
+    await queryRunner.startTransaction();
+    const result = await func();
+    await queryRunner.commitTransaction();
+    return result;
+  } catch (e) {
+    await queryRunner.rollbackTransaction();
+    throw e;
+  }
+};
+
 @Injectable()
 export class AuthorsService {
   private readonly authors: Author[];
@@ -16,14 +31,14 @@ export class AuthorsService {
   ) {}
 
   async findOneById(id: string): Promise<Author> {
-    const r = await this.authorRepository.findOne({
-      where: { id },
-      // relations: { posts: true },
-    });
-    console.warn(r);
-    // throw Error();
-    // await r.posts;
-    return r;
+    const func = async () => {
+      const result = await this.authorRepository.findOne({
+        where: { id },
+        relations: { posts: true },
+      });
+      return result;
+    };
+    return transactionManager(this.queryRunner, func);
   }
 
   async createAuthor(): Promise<Author> {
