@@ -11,6 +11,10 @@ const transactionManager = async <T>(
   queryRunner: QueryRunner,
   func: () => Promise<T>,
 ) => {
+  if (queryRunner.isTransactionActive) {
+    return func();
+  }
+
   try {
     await queryRunner.startTransaction();
     const result = await func();
@@ -24,7 +28,6 @@ const transactionManager = async <T>(
 
 @Injectable()
 export class AuthorsService {
-  private readonly authors: Author[];
   constructor(
     @Inject(QUERY_RUNNER) private queryRunner: QueryRunner,
     @Inject(AUTHOR_REPOSITORY) private authorRepository: Repository<Author>,
@@ -42,10 +45,12 @@ export class AuthorsService {
   }
 
   async createAuthor(): Promise<Author> {
-    const author = Author.of({
+    const author = new Author({
       id: randomUUID(),
-      firstName: 'testfirst',
-      lastName: 'testlast',
+      name: {
+        firstName: 'testfirst',
+        lastName: 'testlast',
+      },
     });
 
     const post = new Post();
@@ -54,7 +59,6 @@ export class AuthorsService {
     post.title = 'testtitle';
     post.votes = 1;
     author.posts = [post];
-
     return await this.authorRepository.save(author);
   }
 }

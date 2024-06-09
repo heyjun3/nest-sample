@@ -10,10 +10,14 @@ type Post {
   author: Author!
 }
 
-type Author {
-  id: String!
+type Name {
   firstName: String
   lastName: String
+}
+
+type Author {
+  id: String!
+  name: Name
   posts: [Post!]
 }
 

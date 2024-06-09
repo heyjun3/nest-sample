@@ -9,8 +9,6 @@ const queryRunnerProvider = {
   scope: Scope.REQUEST,
   useFactory: async (datasource: DataSource, ctx): Promise<QueryRunner> => {
     const queryRunner = datasource.createQueryRunner();
-    console.warn('query runner data', queryRunner.data);
-    queryRunner.data['aaa'] = 'aaa';
     await queryRunner.connect();
     if (ctx) {
       ctx['queryRunner'] = queryRunner;
