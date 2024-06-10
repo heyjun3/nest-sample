@@ -2,19 +2,46 @@ import { QUERY_RUNNER } from 'src/database/queryRunner';
 import { QueryRunner } from 'typeorm';
 import { Author } from './author.model';
 import { Module } from '@nestjs/common';
+import { InjectRepository, getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-export const AUTHOR_REPOSITORY = 'AUTHRO_REPOSITORY';
+export type AuthorRepositoryType = {
+  findById: (id: string) => Promise<Author>;
+  save: <T extends Author | Author[]>(author: T) => Promise<T>;
+};
 
-const AuthorRepositoryFactory = {
-  provide: AUTHOR_REPOSITORY,
+export class AuthorRepository {
+  constructor(
+    @InjectRepository(Author) private authorRepository: Repository<Author>,
+  ) {}
+  async findById(id: string) {
+    return this.authorRepository.findOne({ where: { id } });
+  }
+  async save(author: Author | Author[]) {
+    if (Array.isArray(author)) {
+      return this.authorRepository.save(author);
+    }
+    return this.authorRepository.save(author);
+  }
+}
+
+export const AUTHOR_REPOSITORY = 'AUTHOR_REPOSITORY';
+
+const AuthorFactory = {
+  provide: getRepositoryToken(Author),
   useFactory: async (queryRunner: QueryRunner) => {
     return queryRunner.manager.getRepository(Author);
   },
   inject: [QUERY_RUNNER],
 };
 
+const authorRepositoryFactory = {
+  provide: AUTHOR_REPOSITORY,
+  useClass: AuthorRepository,
+};
+
 @Module({
-  providers: [AuthorRepositoryFactory],
-  exports: [AuthorRepositoryFactory],
+  providers: [AuthorFactory, authorRepositoryFactory],
+  exports: [AuthorFactory, authorRepositoryFactory],
 })
 export class AuthorRepositoryModule {}

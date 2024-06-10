@@ -13,6 +13,7 @@ type Post {
 type Name {
   firstName: String
   lastName: String
+  fullName: String!
 }
 
 type Author {

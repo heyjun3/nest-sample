@@ -1,18 +1,10 @@
-import {
-  Args,
-  Int,
-  Resolver,
-  Query,
-  ResolveField,
-  Parent,
-  Mutation,
-} from '@nestjs/graphql';
+import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 
 import { Author } from './author.model';
 import { AuthorsService } from './authors.service';
 import { PostsService } from 'src/posts/models/post.service';
 
-@Resolver(Author)
+@Resolver(() => Author)
 export class AuthorsResolver {
   constructor(
     private authsService: AuthorsService,

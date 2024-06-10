@@ -1,4 +1,10 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Post } from '../../posts/models/post.model';
 import { PrimaryGeneratedColumn, Column, Entity, OneToMany } from 'typeorm';
 
@@ -12,11 +18,23 @@ export class Name {
   @Field({ nullable: true })
   lastName?: string | undefined;
 
-  constructor(obj: Name) {
+  constructor(obj: Pick<Name, 'firstName' | 'lastName'>) {
     if (obj) {
       console.warn('name constructor');
       Object.assign(this, obj);
     }
+  }
+
+  fullName() {
+    return this?.firstName + this?.lastName;
+  }
+}
+
+@Resolver(() => Name)
+export class NameResolver {
+  @ResolveField(() => String)
+  fullName(@Parent() name: Name) {
+    return name.fullName();
   }
 }
 
