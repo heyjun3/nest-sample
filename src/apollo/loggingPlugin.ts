@@ -9,16 +9,11 @@ import { QueryRunner } from 'typeorm';
 @Plugin()
 export class LoggingPlugin implements ApolloServerPlugin {
   async requestDidStart(): Promise<void | GraphQLRequestListener<BaseContext>> {
-    console.warn('Reqeust started');
     return {
       async willSendResponse(context) {
         const queryRunner = context.contextValue?.['queryRunner'] as
           | QueryRunner
           | undefined;
-        console.warn(
-          'query runner in logging plugin',
-          queryRunner?.data?.['aaa'],
-        );
 
         if (!queryRunner) {
           console.warn('query runner is undefined');
@@ -28,9 +23,6 @@ export class LoggingPlugin implements ApolloServerPlugin {
           console.warn('already released query runner');
           return;
         }
-        // console.warn('release query runner');
-        // await queryRunner.release();
-        // console.warn('Will send response');
       },
     };
   }

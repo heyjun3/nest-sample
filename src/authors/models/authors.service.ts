@@ -1,36 +1,55 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Author } from './author.model';
+import { Author, Name } from './author.model';
 import { QUERY_RUNNER } from 'src/database/queryRunner';
 import { QueryRunner, Repository } from 'typeorm';
-import { AUTHOR_REPOSITORY } from './authors.repository';
+import { AUTHOR_REPOSITORY, AuthorRepositoryType } from './authors.repository';
 import { Post } from 'src/posts/models/post.model';
 import { randomUUID } from 'crypto';
 
+const transactionManager = async <T>(
+  queryRunner: QueryRunner,
+  func: () => Promise<T>,
+) => {
+  if (queryRunner.isTransactionActive) {
+    return func();
+  }
+
+  try {
+    await queryRunner.startTransaction();
+    const result = await func();
+    await queryRunner.commitTransaction();
+    return result;
+  } catch (e) {
+    await queryRunner.rollbackTransaction();
+    throw e;
+  }
+};
+
 @Injectable()
 export class AuthorsService {
-  private readonly authors: Author[];
   constructor(
     @Inject(QUERY_RUNNER) private queryRunner: QueryRunner,
-    @Inject(AUTHOR_REPOSITORY) private authorRepository: Repository<Author>,
+    @Inject(AUTHOR_REPOSITORY) private authorRepository: AuthorRepositoryType,
   ) {}
 
   async findOneById(id: string): Promise<Author> {
-    const r = await this.authorRepository.findOne({
-      where: { id },
-      // relations: { posts: true },
-    });
-    console.warn(r);
-    // throw Error();
-    // await r.posts;
+    const func = async () => {
+      const result = await this.authorRepository.findById(id);
+      return result;
+    };
+    const r = await transactionManager(this.queryRunner, func);
+    console.warn('fullName', r.name.fullName());
     return r;
   }
 
   async createAuthor(): Promise<Author> {
-    const author = Author.of({
+    const author = new Author({
       id: randomUUID(),
-      firstName: 'testfirst',
-      lastName: 'testlast',
+      name: new Name({
+        firstName: 'testfirst',
+        lastName: 'testlast',
+      }),
     });
 
     const post = new Post();
@@ -39,7 +58,6 @@ export class AuthorsService {
     post.title = 'testtitle';
     post.votes = 1;
     author.posts = [post];
-
     return await this.authorRepository.save(author);
   }
 }
