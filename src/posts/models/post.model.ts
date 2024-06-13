@@ -8,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'post' })
 @ObjectType()
+@Entity({ name: 'post' })
 export class Post {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   @Field(() => String)
@@ -32,5 +32,11 @@ export class Post {
   })
   @JoinColumn({ name: 'author_id' })
   @Field(() => Author)
-  author: Author;
+  author?: Promise<Author>;
+
+  constructor(obj: Post) {
+    if (obj) {
+      Object.assign(this, obj);
+    }
+  }
 }

@@ -26,7 +26,7 @@ export class Name {
   }
 
   fullName() {
-    return this?.firstName + this?.lastName;
+    return this?.firstName ?? '' + this?.lastName ?? '';
   }
 }
 
@@ -38,30 +38,28 @@ export class NameResolver {
   }
 }
 
-@Entity({ name: 'author' })
 @ObjectType()
+@Entity({ name: 'author' })
 export class Author {
+  constructor(obj: Author) {
+    if (obj) {
+      Object.assign(this, obj);
+    }
+  }
+
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   @Field(() => String)
-  readonly id: string;
+  readonly id!: string;
 
   @Column(() => Name, { prefix: false })
   @Field(() => Name, { nullable: true })
   name?: Name;
 
+  @Field(() => [Post], { nullable: true })
   @OneToMany(() => Post, (post) => post.author, {
-    cascade: true,
     nullable: true,
     lazy: true,
+    cascade: true,
   })
-  @Field(() => [Post], { nullable: true })
-  posts?: Promise<Post[]> | Post[] | undefined;
-
-  constructor(obj: Author) {
-    if (obj) {
-      this.id = obj.id;
-      this.name = new Name(obj.name);
-      this.posts = obj.posts;
-    }
-  }
+  posts?: Promise<Post[]>;
 }
