@@ -8,5 +8,5 @@ class GetAuthorArgs {
 
   @Field({ defaultValue: '' })
   @MinLength(3)
-  lastName: string;
+  lastName?: string;
 }

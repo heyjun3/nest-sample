@@ -12,11 +12,11 @@ import { PrimaryGeneratedColumn, Column, Entity, OneToMany } from 'typeorm';
 export class Name {
   @Column({ name: 'first_name' })
   @Field({ nullable: true })
-  firstName?: string | undefined;
+  firstName?: string;
 
   @Column({ name: 'last_name' })
   @Field({ nullable: true })
-  lastName?: string | undefined;
+  lastName?: string;
 
   constructor(obj: Pick<Name, 'firstName' | 'lastName'>) {
     if (obj) {
@@ -56,7 +56,7 @@ export class Author {
   name?: Name;
 
   @Field(() => [Post], { nullable: true })
-  @OneToMany(() => Post, (post) => post.author, {
+  @OneToMany(() => Post, (post: Post) => post.author, {
     nullable: true,
     lazy: true,
     cascade: true,

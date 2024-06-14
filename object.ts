@@ -1,7 +1,7 @@
 class User {
-  id: string;
-  firstName: string;
-  lastName: string;
+  id!: string;
+  firstName!: string;
+  lastName!: string;
   constructor(obj: Omit<User, 'fullName'>) {
     Object.assign(this, obj);
   }
@@ -19,7 +19,7 @@ type T1<T> = {
     | T[K];
 };
 
-const diff = <T>(obj1: T, obj2: T) => {
+const diff = <T extends object>(obj1: T, obj2: T) => {
   const result = {} as T1<T>;
   for (const key in obj1) {
     if (!obj2.hasOwnProperty(key)) {

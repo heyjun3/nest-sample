@@ -13,15 +13,15 @@ import {
 export class Post {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   @Field(() => String)
-  id: string;
+  id!: string;
 
   @Column('uuid', { name: 'author_id' })
   @Field(() => String)
-  authorId: string;
+  authorId!: string;
 
   @Column({ name: 'title' })
   @Field()
-  title: string;
+  title!: string;
 
   @Column({ name: 'votes' })
   @Field(() => Int, { nullable: true })

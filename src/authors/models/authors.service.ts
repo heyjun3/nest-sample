@@ -40,7 +40,7 @@ export class AuthorsService {
     };
     const r = await transactionManager(this.queryRunner, func);
     console.warn('posts', await r.posts);
-    console.warn('fullName', r.name?.fullName());
+    // console.warn('fullName', r.name?.fullName());
     return r;
   }
 
@@ -62,6 +62,7 @@ export class AuthorsService {
       ]),
       // posts: Promise.resolve('') as any,
     });
+    console.warn(author);
 
     // const post = new Post();
     // post.id = randomUUID();
@@ -70,7 +71,6 @@ export class AuthorsService {
     // post.votes = 1;
     // console.warn(await author.posts);
     // author.posts = Promise.resolve([post]);
-    console.warn(author);
     return await this.authorRepository.save(author);
   }
 }

@@ -4,7 +4,7 @@ import * as fs from 'fs';
 const src = fs.createReadStream('tsconfig.json');
 
 let count = 0;
-const dst = [];
+const dst: any[] = [];
 const hashStream = new Transform({
   //   objectMode: true,
   transform(chunk, encoding, done) {
