@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-
 import { Author, Name } from './author.model';
 import { QUERY_RUNNER } from 'src/database/queryRunner';
-import { Any, QueryRunner } from 'typeorm';
+import { QueryRunner } from 'typeorm';
 import { AUTHOR_REPOSITORY, AuthorRepositoryType } from './authors.repository';
 import { Post } from 'src/posts/models/post.model';
 import { randomUUID } from 'crypto';
@@ -40,7 +39,6 @@ export class AuthorsService {
     };
     const r = await transactionManager(this.queryRunner, func);
     console.warn('posts', await r.posts);
-    // console.warn('fullName', r.name?.fullName());
     return r;
   }
 
@@ -60,17 +58,7 @@ export class AuthorsService {
           votes: 8,
         }),
       ]),
-      // posts: Promise.resolve('') as any,
     });
-    console.warn(author);
-
-    // const post = new Post();
-    // post.id = randomUUID();
-    // post.authorId = author.id;
-    // post.title = 'testtitle';
-    // post.votes = 1;
-    // console.warn(await author.posts);
-    // author.posts = Promise.resolve([post]);
     return await this.authorRepository.save(author);
   }
 }
