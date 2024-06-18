@@ -1,8 +1,24 @@
-import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
+import {
+  Args,
+  Resolver,
+  Query,
+  Mutation,
+  InputType,
+  Field,
+  ID,
+} from '@nestjs/graphql';
 
 import { Author } from './author.model';
 import { AuthorsService } from './authors.service';
 import { PostsService } from 'src/posts/models/post.service';
+import { IsUUID } from 'class-validator';
+
+@InputType()
+class AuthorInput {
+  @Field(() => ID)
+  @IsUUID()
+  id!: string;
+}
 
 @Resolver(() => Author)
 export class AuthorsResolver {
@@ -12,20 +28,12 @@ export class AuthorsResolver {
   ) {}
 
   @Query(() => Author)
-  async author(
-    @Args('id', { type: () => String }) id: string,
-  ): Promise<Author> {
-    return await this.authsService.findOneById(id);
+  async author(@Args('input') input: AuthorInput): Promise<Author> {
+    return await this.authsService.findOneById(input.id);
   }
 
   @Mutation(() => Author)
   async createAuthor(): Promise<Author> {
     return await this.authsService.createAuthor();
   }
-
-  // @ResolveField()
-  // async post(@Parent() author: Author) {
-  //   const { id } = author;
-  //   return this.postsService.findAll(id);
-  // }
 }

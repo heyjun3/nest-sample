@@ -23,7 +23,11 @@ type Author {
 }
 
 type Query {
-  author(id: String!): Author!
+  author(input: AuthorInput!): Author!
+}
+
+input AuthorInput {
+  id: ID!
 }
 
 type Mutation {
