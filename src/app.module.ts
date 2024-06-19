@@ -22,11 +22,6 @@ import { ReleaseFilter } from './exceptionFilter/releaseFilter';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
-      context: (ctx) => {
-        return {
-          // res: ctx.res,
-        };
-      },
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({

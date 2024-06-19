@@ -1,5 +1,3 @@
-import { ConsoleLogger } from '@nestjs/common';
-
 const lst = [1, 2, 3, 4];
 for (const i of lst) {
   console.log(i);
