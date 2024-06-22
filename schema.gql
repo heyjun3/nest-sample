@@ -20,6 +20,12 @@ type Author {
   id: String!
   name: Name
   posts: [Post!]
+  authorPost(input: PostInput!): [Post!]!
+}
+
+input PostInput {
+  limit: Int!
+  offset: Int!
 }
 
 type Query {
