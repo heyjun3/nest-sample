@@ -59,7 +59,7 @@ export class Author {
   @OneToMany(() => Post, (post: Post) => post.author, {
     nullable: true,
     lazy: true,
-    cascade: true,
+    cascade: ['insert', 'update', 'remove', 'soft-remove'],
   })
   posts?: Promise<Post[]>;
 }

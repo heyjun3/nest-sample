@@ -1,10 +1,12 @@
+import { randomUUID } from 'crypto';
+
 import { Inject, Injectable } from '@nestjs/common';
+import { QueryRunner } from 'typeorm';
+
 import { Author, Name } from './author.model';
 import { QUERY_RUNNER } from 'src/database/queryRunner';
-import { QueryRunner } from 'typeorm';
 import { AUTHOR_REPOSITORY, AuthorRepositoryType } from './authors.repository';
 import { Post } from 'src/posts/models/post.model';
-import { randomUUID } from 'crypto';
 
 const transactionManager = async <T>(
   queryRunner: QueryRunner,
@@ -59,6 +61,11 @@ export class AuthorsService {
         }),
       ]),
     });
+    return await this.authorRepository.save(author);
+  }
+
+  async addPosts(id: string): Promise<Author> {
+    const author = await this.authorRepository.findById(id);
     return await this.authorRepository.save(author);
   }
 }

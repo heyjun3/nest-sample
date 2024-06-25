@@ -36,13 +36,13 @@ class PostInput {
 @Resolver(() => Author)
 export class AuthorsResolver {
   constructor(
-    private authsService: AuthorsService,
+    private authService: AuthorsService,
     private postsService: PostsService,
   ) {}
 
   @Query(() => Author)
   async author(@Args('input') input: AuthorInput): Promise<Author> {
-    return await this.authsService.findOneById(input.id);
+    return await this.authService.findOneById(input.id);
   }
 
   @ResolveField(() => [Post])
@@ -54,6 +54,10 @@ export class AuthorsResolver {
 
   @Mutation(() => Author)
   async createAuthor(): Promise<Author> {
-    return await this.authsService.createAuthor();
+    return await this.authService.createAuthor();
+  }
+  @Mutation(() => Author)
+  async createPosts(@Args('input') { id }: AuthorInput): Promise<Author> {
+    return await this.authService.addPosts(id);
   }
 }

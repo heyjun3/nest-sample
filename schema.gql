@@ -38,4 +38,5 @@ input AuthorInput {
 
 type Mutation {
   createAuthor: Author!
+  createPosts(input: AuthorInput!): Author!
 }
