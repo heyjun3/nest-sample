@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 export type AuthorRepositoryType = {
   findById: (id: string) => Promise<Author>;
   save: <T extends Author | Author[]>(author: T) => Promise<T>;
+  delete: (author: Author) => Promise<Author>;
 };
 
 export class AuthorRepository {
@@ -22,6 +23,9 @@ export class AuthorRepository {
       return this.authorRepository.save(author);
     }
     return this.authorRepository.save(author);
+  }
+  async delete(author: Author) {
+    return this.authorRepository.remove(author);
   }
 }
 

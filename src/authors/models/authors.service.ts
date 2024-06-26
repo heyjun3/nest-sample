@@ -66,6 +66,8 @@ export class AuthorsService {
 
   async addPosts(id: string): Promise<Author> {
     const author = await this.authorRepository.findById(id);
+    await this.authorRepository.delete(author);
+    author.posts = undefined;
     return await this.authorRepository.save(author);
   }
 }
