@@ -20,27 +20,4 @@ async function queuetest() {
   console.warn('wait done');
 }
 
-class Channel extends EventEmitter {
-  send(message: string) {
-    this.emit('message', message);
-  }
-
-  receive(callback: any) {
-    this.on('message', callback);
-  }
-}
-
-function event() {
-  const chan = new Channel();
-  chan.receive((msg) => {
-    setTimeout(() => {
-      console.warn(msg);
-    }, 1000);
-  });
-
-  chan.send('hello');
-  chan.send('hello');
-  chan.send('hello');
-}
-
 queuetest();
