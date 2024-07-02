@@ -1,5 +1,4 @@
 import { queue } from 'async';
-import { EventEmitter } from 'stream';
 
 async function queuetest() {
   const q = queue<number>(async (data, cb) => {
