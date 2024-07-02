@@ -5,12 +5,12 @@ async function queuetest() {
     await new Promise((resolve) => setTimeout(resolve, 500));
     console.warn(data);
     cb(null);
-  });
+  }, 10);
 
   await (async () => {
     for (let i = 0; i < 10; i++) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      q.push(i);
+      q.push([i, i + 1]);
     }
   })();
   console.warn('push done');
