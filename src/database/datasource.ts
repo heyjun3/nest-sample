@@ -10,8 +10,6 @@ export const datasourceConfig: DataSourceOptions = {
   database: 'sample',
   entities: ['src/**/*.model.ts'],
   migrations: ['src/migrations/*.ts'],
-  // logger: 'simple-console',
-  // logger: 'debug',
   logger: new CustomLogger(true),
 };
 

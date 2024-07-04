@@ -13,8 +13,8 @@ async function queuetest() {
       q.push([[i, i + 1]]);
     }
   })();
-  console.warn('push done');
 
+  console.warn('push done');
   await q.drain();
   console.warn('wait done');
 }
