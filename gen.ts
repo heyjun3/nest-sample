@@ -14,10 +14,15 @@ class GenRandomInt {
     private readonly max: number = 1000,
   ) {}
 
-  async *genInt() {
+  async *genInt(max?: number) {
     for (let i = 0; i < this.cnt; i++) {
-      yield randomInt(this.max);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      yield randomInt(max ? max : this.max);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      try {
+        throw Error('test Error');
+      } catch (e) {
+        console.warn('catch 2', e);
+      }
     }
     return;
   }
@@ -30,8 +35,12 @@ async function main() {
   }
 
   const genRandomInt = new GenRandomInt(10);
-  for await (const i of genRandomInt.genInt()) {
-    console.warn(i);
+  try {
+    for await (const i of genRandomInt.genInt(10)) {
+      console.warn(i);
+    }
+  } catch (e) {
+    console.warn('catch', e);
   }
 }
 
