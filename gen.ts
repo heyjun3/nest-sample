@@ -15,14 +15,10 @@ class GenRandomInt {
   ) {}
 
   async *genInt(max?: number) {
+    console.warn('run gen int');
     for (let i = 0; i < this.cnt; i++) {
       yield randomInt(max ? max : this.max);
       await new Promise((resolve) => setTimeout(resolve, 100));
-      try {
-        throw Error('test Error');
-      } catch (e) {
-        console.warn('catch 2', e);
-      }
     }
     return;
   }
@@ -35,8 +31,11 @@ async function main() {
   }
 
   const genRandomInt = new GenRandomInt(10);
+  const generate = genRandomInt.genInt(10);
+  console.warn('get generate');
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
-    for await (const i of genRandomInt.genInt(10)) {
+    for await (const i of generate) {
       console.warn(i);
     }
   } catch (e) {
