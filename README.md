@@ -45,6 +45,16 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Start up Elasticsearch
+
+```
+sudo sysctl -w vm.max_map_count=262144
+cp .env.example .env
+docker compose up -d
+docker compose cp es01:/usr/share/elasticsearch/config/certs/ca/ca.crt ./
+curl https://localhost:9200/search-test --cacert ca.crt -H "Authorization: ApiKey "${API_KEY}"" -H "Content-Type: application/json"
+```
+
 ## Test
 
 ```bash
