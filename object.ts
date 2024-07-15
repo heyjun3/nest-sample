@@ -6,6 +6,9 @@ const inspect = (obj: any) =>
 const user = {
   name: 'test',
   age: 12,
+  toString: function () {
+    return this.age;
+  },
 };
 
 inspect(user);
@@ -15,3 +18,5 @@ user2.age = 40;
 
 inspect(user);
 inspect(user2);
+
+console.warn(user);
