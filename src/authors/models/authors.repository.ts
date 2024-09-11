@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 
 export type AuthorRepositoryType = {
   findById: (id: string) => Promise<Author>;
+  findByIds: (ids: string[]) => Promise<Author[]>;
   save: <T extends Author | Author[]>(author: T) => Promise<T>;
   delete: (author: Author) => Promise<Author>;
 };
@@ -17,6 +18,9 @@ export class AuthorRepository {
   ) {}
   async findById(id: string) {
     return this.authorRepository.findOne({ where: { id } });
+  }
+  async findByIds(ids: string[]) {
+    return await this.authorRepository.find({ where: })
   }
   async save(author: Author | Author[]) {
     if (Array.isArray(author)) {

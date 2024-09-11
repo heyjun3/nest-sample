@@ -30,6 +30,7 @@ input PostInput {
 
 type Query {
   author(input: AuthorInput!): Author!
+  authorPost(input: PostInput!): [Author!]!
 }
 
 input AuthorInput {

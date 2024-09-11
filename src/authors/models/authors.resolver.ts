@@ -45,6 +45,11 @@ export class AuthorsResolver {
     return await this.authService.findOneById(input.id);
   }
 
+  @Query(() => [Author])
+  async authors() {
+    return await this.
+  }
+
   @ResolveField(() => [Post])
   async authorPost(@Parent() author: Author, @Args('input') input: PostInput) {
     console.warn('input', input);
