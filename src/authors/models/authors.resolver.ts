@@ -47,7 +47,7 @@ export class AuthorsResolver {
 
   @Query(() => [Author])
   async authors() {
-    return await this.
+    return await this.authService.findByIds([]);
   }
 
   @ResolveField(() => [Post])

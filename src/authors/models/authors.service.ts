@@ -44,6 +44,10 @@ export class AuthorsService {
     return r;
   }
 
+  async findByIds(ids: string[]): Promise<Author[]> {
+    return await this.authorRepository.findByIds(ids);
+  }
+
   async createAuthor(): Promise<Author> {
     const id = randomUUID();
     const author = new Author({

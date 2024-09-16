@@ -1,5 +1,5 @@
 import { QUERY_RUNNER } from 'src/database/queryRunner';
-import { QueryRunner } from 'typeorm';
+import { In, QueryRunner } from 'typeorm';
 import { Author } from './author.model';
 import { Module } from '@nestjs/common';
 import { InjectRepository, getRepositoryToken } from '@nestjs/typeorm';
@@ -20,7 +20,10 @@ export class AuthorRepository {
     return this.authorRepository.findOne({ where: { id } });
   }
   async findByIds(ids: string[]) {
-    return await this.authorRepository.find({ where: })
+    if (ids.length) {
+      return await this.authorRepository.find({ where: { id: In(ids) } });
+    }
+    return await this.authorRepository.find({ take: 100 });
   }
   async save(author: Author | Author[]) {
     if (Array.isArray(author)) {
