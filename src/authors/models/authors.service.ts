@@ -32,7 +32,7 @@ export class AuthorsService {
   constructor(
     @Inject(QUERY_RUNNER) private queryRunner: QueryRunner,
     @Inject(AUTHOR_REPOSITORY) private authorRepository: AuthorRepositoryType,
-  ) {}
+  ) { }
 
   async findOneById(id: string): Promise<Author> {
     const func = async () => {
@@ -65,7 +65,17 @@ export class AuthorsService {
         }),
       ]),
     });
-    return await this.authorRepository.save(author);
+    const authors = [...Array(100)].map((_, i) => {
+      return new Author({
+        id: randomUUID(),
+        name: new Name({
+          firstName: 'nick',
+          lastName: 'bee'
+        })
+      })
+    })
+    await this.authorRepository.save([author, ...authors]);
+    return author;
   }
 
   async addPosts(id: string): Promise<Author> {

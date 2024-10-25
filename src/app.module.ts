@@ -16,6 +16,7 @@ import { datasourceConfig } from './database/datasource';
 import { AuthorRepositoryModule } from './authors/models/authors.repository';
 import { Post } from './posts/models/post.model';
 import { ReleaseFilter } from './exceptionFilter/releaseFilter';
+import { AuthorSubscriber } from './database/subscriber';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ReleaseFilter } from './exceptionFilter/releaseFilter';
   ],
   providers: [
     LoggingPlugin,
+    AuthorSubscriber,
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
