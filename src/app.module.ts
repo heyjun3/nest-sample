@@ -17,11 +17,16 @@ import { AuthorRepositoryModule } from './authors/models/authors.repository';
 import { Post } from './posts/models/post.model';
 import { ReleaseFilter } from './exceptionFilter/releaseFilter';
 import { AuthorSubscriber } from './database/subscriber';
+import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
+    // GraphQLModule.forRoot<ApolloDriverConfig>({
+    //   driver: ApolloDriver,
+    //   autoSchemaFile: 'schema.gql',
+    // }),
+    GraphQLModule.forRoot<YogaDriverConfig>({
+      driver: YogaDriver,
       autoSchemaFile: 'schema.gql',
     }),
     TypeOrmModule.forRootAsync({
@@ -57,4 +62,4 @@ import { AuthorSubscriber } from './database/subscriber';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
