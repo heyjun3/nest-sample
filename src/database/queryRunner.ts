@@ -11,9 +11,13 @@ const queryRunnerProvider = {
     const queryRunner = datasource.createQueryRunner();
     await queryRunner.connect();
     if (ctx) {
-      ctx['queryRunner'] = queryRunner;
+      if (ctx?.context) {
+        ctx.context['queryRunner'] = queryRunner
+      } else {
+        ctx['queryRunner'] = queryRunner;
+      }
     }
-    ctx.req.res.on('close', async () => {
+    ctx.req?.res?.on('close', async () => {
       console.warn('close response');
       if (queryRunner.isReleased) {
         return;

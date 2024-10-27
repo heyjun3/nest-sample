@@ -18,6 +18,7 @@ import { Post } from './posts/models/post.model';
 import { ReleaseFilter } from './exceptionFilter/releaseFilter';
 import { AuthorSubscriber } from './database/subscriber';
 import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
+import { MessageHandler } from './handler/pubsubHandler';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
     QueryRunnerModule,
     AuthorRepositoryModule,
   ],
+  controllers: [MessageHandler],
   providers: [
     LoggingPlugin,
     AuthorSubscriber,
