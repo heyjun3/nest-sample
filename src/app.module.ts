@@ -64,4 +64,4 @@ import { MessageHandler } from './handler/pubsubHandler';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

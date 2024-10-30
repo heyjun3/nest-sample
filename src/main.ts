@@ -20,7 +20,7 @@ async function bootstrap() {
       projectId: 'gsheet-355401',
       subscribers: ['nest-sub'],
     }),
-  })
+  });
   await app.startAllMicroservices();
   await app.listen(8080);
 }

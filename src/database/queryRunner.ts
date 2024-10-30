@@ -1,5 +1,6 @@
 import { Global, Module, Scope } from '@nestjs/common';
 import { CONTEXT } from '@nestjs/graphql';
+import { randomUUID } from 'crypto';
 import { DataSource, QueryRunner } from 'typeorm';
 
 export const QUERY_RUNNER = 'QUERY_RUNNER';
@@ -9,10 +10,13 @@ const queryRunnerProvider = {
   scope: Scope.REQUEST,
   useFactory: async (datasource: DataSource, ctx): Promise<QueryRunner> => {
     const queryRunner = datasource.createQueryRunner();
+    queryRunner.data = {
+      id: randomUUID(),
+    };
     await queryRunner.connect();
     if (ctx) {
       if (ctx?.context) {
-        ctx.context['queryRunner'] = queryRunner
+        ctx.context['queryRunner'] = queryRunner;
       } else {
         ctx['queryRunner'] = queryRunner;
       }
