@@ -11,7 +11,16 @@ export class LoggingInterceptor implements NestInterceptor {
     const now = Date.now();
     return next
       .handle()
-      .pipe(tap(() => console.warn('After...', Date.now() - now)));
+      .pipe(tap(async () => {
+        console.warn('After...', Date.now() - now)
+        if (context.getType() == 'rpc') {
+          const ctx = context.switchToRpc().getContext()
+          if (ctx?.queryRunner) {
+            await ctx?.queryRunner.release()
+            console.warn("release query runner")
+          }
+        }
+      }));
   }
 }
 

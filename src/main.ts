@@ -28,7 +28,7 @@ async function bootstrap() {
       package: 'api.author.v1',
       protoPath: '/app/dist/api/author/v1/author.proto',
     },
-  });
+  }, { inheritAppConfig: true});
   await app.startAllMicroservices();
   await app.listen(8080);
 }
