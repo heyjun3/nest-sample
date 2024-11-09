@@ -83,7 +83,7 @@ export class GoogleCloudPubSubServer
 }
 
 function Sub(value: string) {
-    return MessagePattern(value)
+  return MessagePattern(value);
 }
 
 @Controller()
@@ -95,8 +95,8 @@ export class MessageHandler {
     console.warn(JSON.parse(data.toString()));
   }
 
-//   @MessagePattern('post.created')
-  @Sub("post.created")
+  //   @MessagePattern('post.created')
+  @Sub('post.created')
   createPost(@Payload() message: Message, @Ctx() ctx: any) {
     const { data } = message;
     console.warn('create post');

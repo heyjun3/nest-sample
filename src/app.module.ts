@@ -29,6 +29,7 @@ import { MessageHandler } from './handler/pubsubHandler';
     GraphQLModule.forRoot<YogaDriverConfig>({
       driver: YogaDriver,
       autoSchemaFile: 'schema.gql',
+      path: '/graphql'
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -40,7 +41,7 @@ import { MessageHandler } from './handler/pubsubHandler';
     QueryRunnerModule,
     AuthorRepositoryModule,
   ],
-  controllers: [MessageHandler],
+  // controllers: [MessageHandler],
   providers: [
     LoggingPlugin,
     AuthorSubscriber,
