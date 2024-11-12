@@ -5,6 +5,7 @@ import { UserInputError } from '@nestjs/apollo';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { GoogleCloudPubSubServer } from './handler/pubsubHandler';
 import { join } from 'path';
+import { ReflectionService } from '@grpc/reflection';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,8 +28,11 @@ async function bootstrap() {
     options: {
       package: 'api.author.v1',
       protoPath: '/app/dist/api/author/v1/author.proto',
+      onLoadPackageDefinition: (pkg, server) => {
+        new ReflectionService(pkg).addToServer(server);
+      }
     },
-  }, { inheritAppConfig: true});
+  }, { inheritAppConfig: true });
   await app.startAllMicroservices();
   await app.listen(8080);
 }
