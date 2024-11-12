@@ -16,6 +16,20 @@ import { AuthorsService } from './authors.service';
 import { PostsService } from 'src/posts/models/post.service';
 import { IsUUID } from 'class-validator';
 import { Post } from 'src/posts/models/post.model';
+import {
+  createConnectTransport,
+  createGrpcTransport,
+} from '@connectrpc/connect-node';
+import { createClient } from '@connectrpc/connect';
+import { AuthorService } from 'src/gen/api/author/v1/author_connect';
+import { Inject } from '@nestjs/common';
+import { ClientGrpc } from '@nestjs/microservices';
+
+const transport = createGrpcTransport({
+  baseUrl: 'http://localhost:5000',
+  httpVersion: '2',
+});
+const client = createClient(AuthorService, transport);
 
 @InputType()
 class AuthorInput {
@@ -38,6 +52,7 @@ export class AuthorsResolver {
   constructor(
     private authService: AuthorsService,
     private postsService: PostsService,
+    @Inject('AUTHOR_CLIENT') private client: ClientGrpc,
   ) {}
 
   @Query(() => Author)
@@ -59,6 +74,11 @@ export class AuthorsResolver {
 
   @Mutation(() => Author)
   async createAuthor(): Promise<Author> {
+    const r = await client.getAuthor(
+      { id: '1' },
+      { headers: { Auth: 'XXXX' } },
+    );
+    console.warn('r', r);
     return await this.authService.createAuthor();
   }
   @Mutation(() => Author)

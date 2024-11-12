@@ -14,7 +14,7 @@ const queryRunnerProvider = {
       id: randomUUID(),
     };
     await queryRunner.connect();
-    console.warn('qeury runner connect')
+    console.warn('qeury runner connect');
     if (ctx) {
       if (ctx?.context) {
         ctx.context['queryRunner'] = queryRunner;

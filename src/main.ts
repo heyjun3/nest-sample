@@ -23,16 +23,19 @@ async function bootstrap() {
   //     subscribers: ['nest-sub'],
   //   }),
   // });
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.GRPC,
-    options: {
-      package: 'api.author.v1',
-      protoPath: '/app/dist/api/author/v1/author.proto',
-      onLoadPackageDefinition: (pkg, server) => {
-        new ReflectionService(pkg).addToServer(server);
-      }
+  app.connectMicroservice<MicroserviceOptions>(
+    {
+      transport: Transport.GRPC,
+      options: {
+        package: 'api.author.v1',
+        protoPath: '/app/dist/api/author/v1/author.proto',
+        onLoadPackageDefinition: (pkg, server) => {
+          new ReflectionService(pkg).addToServer(server);
+        },
+      },
     },
-  }, { inheritAppConfig: true });
+    { inheritAppConfig: true },
+  );
   await app.startAllMicroservices();
   await app.listen(8080);
 }

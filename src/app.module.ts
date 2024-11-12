@@ -22,15 +22,16 @@ import { MessageHandler } from './handler/pubsubHandler';
 
 @Module({
   imports: [
-    // GraphQLModule.forRoot<ApolloDriverConfig>({
-    //   driver: ApolloDriver,
-    //   autoSchemaFile: 'schema.gql',
-    // }),
-    GraphQLModule.forRoot<YogaDriverConfig>({
-      driver: YogaDriver,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
-      path: '/graphql'
+      path: '/graphql',
     }),
+    // GraphQLModule.forRoot<YogaDriverConfig>({
+    //   driver: YogaDriver,
+    //   autoSchemaFile: 'schema.gql',
+    //   path: '/graphql',
+    // }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         ...datasourceConfig,

@@ -9,18 +9,18 @@ export class LoggingInterceptor implements NestInterceptor {
   ): Observable<any> {
     console.warn('Before...');
     const now = Date.now();
-    return next
-      .handle()
-      .pipe(tap(async () => {
-        console.warn('After...', Date.now() - now)
+    return next.handle().pipe(
+      tap(async () => {
+        console.warn('After...', Date.now() - now);
         if (context.getType() == 'rpc') {
-          const ctx = context.switchToRpc().getContext()
+          const ctx = context.switchToRpc().getContext();
           if (ctx?.queryRunner) {
-            await ctx?.queryRunner.release()
-            console.warn("release query runner")
+            await ctx?.queryRunner.release();
+            console.warn('release query runner');
           }
         }
-      }));
+      }),
+    );
   }
 }
 
