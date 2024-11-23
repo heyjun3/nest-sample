@@ -1,3 +1,4 @@
+import { create, toBinary } from '@bufbuild/protobuf';
 import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 import {
   CanActivate,
@@ -18,6 +19,7 @@ import { QUERY_RUNNER } from 'src/database/queryRunner';
 import {
   GetAuthorRequest,
   GetAuthorResponse,
+  GetAuthorResponseSchema,
 } from 'src/gen/api/author/v1/author_pb';
 import { QueryRunner } from 'typeorm';
 
@@ -50,7 +52,7 @@ export class AuthorController {
     console.warn('data', data);
     // console.warn('meta', metadata)
     console.warn('Auth', metadata.get('Auth'));
-    const author = new GetAuthorResponse({
+    const author = create(GetAuthorResponseSchema, {
       author: {
         id: 'test_id',
         fullname: 'test_fullname',
@@ -64,14 +66,14 @@ export class AuthorController {
 export class AuthroControllerV2 {
   @Get('author')
   getAuthor(@Res() res: Response) {
-    const r = new GetAuthorResponse({
+    const r = create(GetAuthorResponseSchema, {
       author: {
         id: 'test_id_v2',
         fullname: 'test_name',
       },
     });
-    console.warn(Buffer.from(r.toBinary()));
-    res.write(Buffer.from(r.toBinary()));
+    console.warn(Buffer.from(toBinary(GetAuthorResponseSchema, r)));
+    res.write(Buffer.from(toBinary(GetAuthorResponseSchema, r)));
     res.status(HttpStatus.OK).send();
   }
 }

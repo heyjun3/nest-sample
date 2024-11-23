@@ -21,13 +21,12 @@ import {
   createGrpcTransport,
 } from '@connectrpc/connect-node';
 import { createClient } from '@connectrpc/connect';
-import { AuthorService } from 'src/gen/api/author/v1/author_connect';
+import { AuthorService } from 'src/gen/api/author/v1/author_pb';
 import { Inject } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 
 const transport = createGrpcTransport({
   baseUrl: 'http://localhost:5000',
-  httpVersion: '2',
 });
 const client = createClient(AuthorService, transport);
 
