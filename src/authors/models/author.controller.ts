@@ -3,11 +3,15 @@ import {
   CanActivate,
   Controller,
   ExecutionContext,
+  Get,
+  HttpStatus,
   Inject,
   Injectable,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
+import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { QUERY_RUNNER } from 'src/database/queryRunner';
 
@@ -53,5 +57,21 @@ export class AuthorController {
       },
     });
     return author;
+  }
+}
+
+@Controller('api')
+export class AuthroControllerV2 {
+  @Get('author')
+  getAuthor(@Res() res: Response) {
+    const r = new GetAuthorResponse({
+      author: {
+        id: 'test_id_v2',
+        fullname: 'test_name',
+      },
+    });
+    console.warn(Buffer.from(r.toBinary()));
+    res.write(Buffer.from(r.toBinary()));
+    res.status(HttpStatus.OK).send();
   }
 }

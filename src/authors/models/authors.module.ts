@@ -10,7 +10,7 @@ import { AuthorsService } from './authors.service';
 import { PostsService } from 'src/posts/models/post.service';
 import { AuthorRepositoryModule } from './authors.repository';
 import { NameResolver } from './author.model';
-import { AuthorController } from './author.controller';
+import { AuthorController, AuthroControllerV2 } from './author.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { NextFunction } from 'express';
@@ -38,7 +38,7 @@ export class LoggerMiddleware implements NestMiddleware {
       },
     ]),
   ],
-  controllers: [AuthorController],
+  controllers: [AuthorController, AuthroControllerV2],
   providers: [AuthorsResolver, AuthorsService, PostsService, NameResolver],
 })
 export class AuthorsModule implements NestModule {
