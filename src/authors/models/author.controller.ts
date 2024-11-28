@@ -72,8 +72,8 @@ export class AuthroControllerV2 {
         fullname: 'test_name',
       },
     });
-    console.warn(Buffer.from(toBinary(GetAuthorResponseSchema, r)));
-    res.write(Buffer.from(toBinary(GetAuthorResponseSchema, r)));
+    console.warn(Buffer.from(toBinary(GetAuthorResponseSchema, r)).toString('base64'));
+    res.write(Buffer.from(toBinary(GetAuthorResponseSchema, r)).toString('base64'));
     res.status(HttpStatus.OK).send();
   }
 }
