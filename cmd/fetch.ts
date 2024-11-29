@@ -7,7 +7,7 @@ const main = async () => {
 
   // const buf = await res.arrayBuffer()
   const buf = Buffer.from(await res.text(), 'base64');
-  console.warn(buf)
+  console.warn(buf);
   const uint = Uint8Array.from(buf);
   const dec = fromBinary(GetAuthorResponseSchema, uint);
   console.warn(dec);
