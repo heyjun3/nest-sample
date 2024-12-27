@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "name": "Launch debugger",
+      "request": "launch",
+      "runtimeArgs": [
+        "run",
+        "start:debug"
+      ],
+      "runtimeExecutable": "/home/jun/.nvm/versions/node/v22.12.0/bin/npm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "sourceMaps": true,
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+    },
+  ]
+}

@@ -28,7 +28,7 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: 'api.author.v1',
-        protoPath: '/app/dist/api/author/v1/author.proto',
+        protoPath: 'dist/api/author/v1/author.proto',
         onLoadPackageDefinition: (pkg, server) => {
           new ReflectionService(pkg).addToServer(server);
         },

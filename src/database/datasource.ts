@@ -3,8 +3,8 @@ import { CustomLogger } from './customLogger';
 
 export const datasourceConfig: DataSourceOptions = {
   type: 'postgres',
-  host: 'postgres',
-  port: 5432,
+  host: '127.0.0.1',
+  port: 5433,
   username: 'postgres',
   password: 'postgres',
   database: 'sample',
