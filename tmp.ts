@@ -27,4 +27,54 @@ const main = async () => {
   writeStream();
 };
 
+const EventType = {
+  UPDATE: 'UPDATE',
+  CREATE: 'CREATE',
+} as const
+type EventType = keyof typeof EventType
+
+enum Status {
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+  PENDING = 'PENDING',
+}
+
+type Success = {
+  kind: EventType,
+  status: Status.SUCCESS,
+}
+type Failed = {
+  kind: EventType,
+  status: Status.FAILED,
+  message: string,
+}
+type Pending = {
+  kind: EventType,
+  status: Status.PENDING,
+  reason: string,
+}
+type Result = Success | Failed | Pending
+
+const event = () => {
+  const results: Result[] = []
+  results.push({ kind: EventType.CREATE, status: Status.SUCCESS }, { kind: EventType.UPDATE, status: Status.FAILED, message: 'test' }, { kind: EventType.CREATE, status: Status.PENDING, reason: 'reason' })
+
+  for (const result of results) {
+    switch (result.status) {
+      case Status.FAILED:
+        console.warn(result.message)
+        break;
+      case Status.SUCCESS:
+        console.warn(result)
+        break;
+      case Status.PENDING:
+        console.warn(result.reason)
+        break;
+      default:
+        console.warn(result)
+    }
+  }
+  const faileds = results.filter((result) => result.status != Status.FAILED);
+}
+
 main();
