@@ -57,15 +57,15 @@ export class AuthorSubscriber implements EntitySubscriberInterface<Author> {
       if (!events) {
         return;
       }
-      const messages = events.map((event) => {
-        return this.publisher.publishMessage({
-          data: Buffer.from(JSON.stringify(event)),
-          attributes: {
-            eventName: event.eventName,
-          },
-        });
-      });
-      return Promise.all(messages);
+      // const messages = events.map((event) => {
+      //   return this.publisher.publishMessage({
+      //     data: Buffer.from(JSON.stringify(event)),
+      //     attributes: {
+      //       eventName: event.eventName,
+      //     },
+      //   });
+      // });
+      // return Promise.all(messages);
     } catch (e) {
       console.error(e);
     } finally {
