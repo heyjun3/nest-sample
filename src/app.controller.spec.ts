@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 // const mock = {
 //   getHello: jest.fn(() => 'Hello World!')
 // }
-const getHello = jest.fn(() => 'Hello World!')
+const getHello = jest.fn(() => 'Hello World!');
 
 describe('AppController', () => {
   let appController: AppController;
@@ -13,12 +13,14 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [{
-        provide: AppService,
-        useValue: {
-          getHello,
+      providers: [
+        {
+          provide: AppService,
+          useValue: {
+            getHello,
+          },
         },
-      }],
+      ],
     }).compile();
 
     appController = app.get<AppController>(AppController);
@@ -31,9 +33,9 @@ describe('AppController', () => {
 
     it('mock app service', () => {
       // jest.spyOn(mock, 'getHello').mockImplementation(() => "hello mock")
-      getHello.mockImplementationOnce(() => 'hello mock')
+      getHello.mockImplementationOnce(() => 'hello mock');
 
-      expect(appController.getHello()).toBe('hello mock')
-    })
+      expect(appController.getHello()).toBe('hello mock');
+    });
   });
 });

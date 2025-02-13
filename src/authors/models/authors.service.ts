@@ -22,7 +22,7 @@ const transactionManager = async <T>(
     await queryRunner.commitTransaction();
     return result;
   } catch (e) {
-    console.warn(e)
+    console.warn(e);
     await queryRunner.rollbackTransaction();
     throw e;
   }

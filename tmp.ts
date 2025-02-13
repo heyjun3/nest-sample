@@ -28,8 +28,8 @@ const readFileStream = () => {
 const EventType = {
   UPDATE: 'UPDATE',
   CREATE: 'CREATE',
-} as const
-type EventType = keyof typeof EventType
+} as const;
+type EventType = keyof typeof EventType;
 
 enum Status {
   SUCCESS = 'SUCCESS',
@@ -38,61 +38,65 @@ enum Status {
 }
 
 type Success = {
-  kind: EventType,
-  status: Status.SUCCESS,
-}
+  kind: EventType;
+  status: Status.SUCCESS;
+};
 type Failed = {
-  kind: EventType,
-  status: Status.FAILED,
-  message: string,
-}
+  kind: EventType;
+  status: Status.FAILED;
+  message: string;
+};
 type Pending = {
-  kind: EventType,
-  status: Status.PENDING,
-  reason: string,
-}
-type Result = Success | Failed | Pending
+  kind: EventType;
+  status: Status.PENDING;
+  reason: string;
+};
+type Result = Success | Failed | Pending;
 
 const event = () => {
-  const results: Result[] = []
-  results.push({ kind: EventType.CREATE, status: Status.SUCCESS }, { kind: EventType.UPDATE, status: Status.FAILED, message: 'test' }, { kind: EventType.CREATE, status: Status.PENDING, reason: 'reason' })
+  const results: Result[] = [];
+  results.push(
+    { kind: EventType.CREATE, status: Status.SUCCESS },
+    { kind: EventType.UPDATE, status: Status.FAILED, message: 'test' },
+    { kind: EventType.CREATE, status: Status.PENDING, reason: 'reason' },
+  );
 
   for (const result of results) {
     switch (result.status) {
       case Status.FAILED:
-        console.warn(result.message)
+        console.warn(result.message);
         break;
       case Status.SUCCESS:
-        console.warn(result)
+        console.warn(result);
         break;
       case Status.PENDING:
-        console.warn(result.reason)
+        console.warn(result.reason);
         break;
       default:
-        console.warn(result)
+        console.warn(result);
     }
   }
   const faileds = results.filter((result) => result.status != Status.FAILED);
-}
+};
 
 class Usecase {
-  constructor() { }
+  constructor() {}
 
   something() {
-    console.warn('class', this.constructor.name)
+    console.warn('class', this.constructor.name);
   }
 }
 
 const main = async () => {
-  const usecase = new Usecase()
-  usecase.something()
+  const usecase = new Usecase();
+  usecase.something();
   const auth = {
     id: 'id',
     fullname: 'fullname',
-    aaa: "aaa"
-  }
-  const author = create(AuthorSchema, auth)
-  console.warn(author)
+    aaa: 'aaa',
+  };
+  const author = create(AuthorSchema, auth);
+  console.warn(author);
 };
 
 main();
