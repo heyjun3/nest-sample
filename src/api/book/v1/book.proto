@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package api.book.v1;
+
+message Book {
+    string id = 1;
+    string name = 2;
+}
+
+message Books {
+    repeated Book books = 1;
+}

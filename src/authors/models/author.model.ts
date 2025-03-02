@@ -56,10 +56,14 @@ export class Author {
   name?: Name;
 
   @Field(() => [Post], { nullable: true })
-  @OneToMany(() => Post, (post: Post) => post.author, {
-    nullable: true,
-    lazy: true,
-    cascade: ['insert', 'update', 'remove', 'soft-remove'],
-  })
+  @OneToMany(
+    () => Post,
+    (post: Post) => post.author,
+    {
+      nullable: true,
+      lazy: true,
+      cascade: ['insert', 'update', 'remove', 'soft-remove'],
+    },
+  )
   posts?: Promise<Post[]>;
 }

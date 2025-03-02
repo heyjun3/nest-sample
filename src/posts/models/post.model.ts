@@ -27,9 +27,13 @@ export class Post {
   @Field(() => Int, { nullable: true })
   votes?: number;
 
-  @ManyToOne(() => Author, (author) => author.posts, {
-    lazy: true,
-  })
+  @ManyToOne(
+    () => Author,
+    (author) => author.posts,
+    {
+      lazy: true,
+    },
+  )
   @JoinColumn({ name: 'author_id' })
   @Field(() => Author)
   author?: Promise<Author>;

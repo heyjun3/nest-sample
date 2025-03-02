@@ -30,8 +30,8 @@ class StrictMap<T extends ZodSchema, U extends any> {
     return this.map.get(JSON.stringify(parsedKey));
   }
   dump() {
-    for (const [k ,v] of this.map) {
-        console.warn('key', k, 'value', v)
+    for (const [k, v] of this.map) {
+      console.warn('key', k, 'value', v);
     }
   }
 }
