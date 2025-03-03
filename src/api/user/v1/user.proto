@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+message User {
+    string id = 1;
+    string name = 2;
+}
+
+message Users {
+    repeated User users = 1;
+}
