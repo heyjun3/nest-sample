@@ -17,3 +17,10 @@ CREATE TABLE
 
 ALTER TABLE "post"
 ADD CONSTRAINT "FK_2f1a9ca8908fc8168bc18437f62" FOREIGN KEY ("author_id") REFERENCES "author" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+CREATE TABLE
+    users (
+        "id" UUID NOT NULL DEFAULT gen_random_uuid (),
+        "name" CHARACTER VARYING NOT NULL,
+        CONSTRAINT pk_users_id PRIMARY KEY ("id")
+    );

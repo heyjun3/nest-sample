@@ -12,7 +12,7 @@ import type { Message } from '@bufbuild/protobuf';
 export const file_api_book_v1_book: GenFile =
   /*@__PURE__*/
   fileDesc(
-    'ChZhcGkvYm9vay92MS9ib29rLnByb3RvEgthcGkuYm9vay52MSIgCgRCb29rEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkiKQoFQm9va3MSIAoFYm9va3MYASADKAsyES5hcGkuYm9vay52MS5Cb29rYgZwcm90bzM',
+    'ChZhcGkvYm9vay92MS9ib29rLnByb3RvEgthcGkuYm9vay52MSI+CgRCb29rEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSEgoFdGl0bGUYAyABKAlIAIgBAUIICgZfdGl0bGUiKQoFQm9va3MSIAoFYm9va3MYASADKAsyES5hcGkuYm9vay52MS5Cb29rYgZwcm90bzM',
   );
 
 /**
@@ -28,6 +28,11 @@ export type Book = Message<'api.book.v1.Book'> & {
    * @generated from field: string name = 2;
    */
   name: string;
+
+  /**
+   * @generated from field: optional string title = 3;
+   */
+  title?: string;
 };
 
 /**

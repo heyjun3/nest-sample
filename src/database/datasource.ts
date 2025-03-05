@@ -11,6 +11,8 @@ export const datasourceConfig: DataSourceOptions = {
   entities: ['src/**/*.model.ts'],
   migrations: ['src/migrations/*.ts'],
   logger: new CustomLogger(true),
+  logging: 'all',
+  maxQueryExecutionTime: -1,
 };
 
 export default new DataSource(datasourceConfig);

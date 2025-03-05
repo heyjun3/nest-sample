@@ -19,6 +19,8 @@ import { ReleaseFilter } from './exceptionFilter/releaseFilter';
 import { AuthorSubscriber } from './database/subscriber';
 import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
 import { MessageHandler } from './handler/pubsubHandler';
+import { User, UserRepository, UserRepositoryModule } from './users/user.model';
+import { UserController } from './users/controller';
 
 @Module({
   imports: [
@@ -35,14 +37,15 @@ import { MessageHandler } from './handler/pubsubHandler';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         ...datasourceConfig,
-        entities: [Author, Post],
+        entities: [Author, Post, User],
       }),
     }),
     AuthorsModule,
     QueryRunnerModule,
     AuthorRepositoryModule,
+    UserRepositoryModule,
   ],
-  // controllers: [MessageHandler],
+  controllers: [UserController],
   providers: [
     LoggingPlugin,
     AuthorSubscriber,

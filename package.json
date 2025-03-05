@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migrate:gen": "typeorm-ts-node-commonjs migration:generate -d src/database/datasource.ts"
+    "migrate:gen": "typeorm-ts-node-commonjs migration:generate -d src/database/datasource.ts",
+    "prepare": "ts-patch install"
   },
   "dependencies": {
     "@apollo/server": "^4.10.4",
@@ -55,6 +56,7 @@
     "reflect-metadata": "^0.1.14",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.20",
+    "typia": "^8.0.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -79,8 +81,9 @@
     "ts-jest": "29.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.9.1",
+    "ts-patch": "^3.3.0",
     "tsconfig-paths": "4.1.1",
-    "typescript": "^4.7.4"
+    "typescript": "~5.8.2"
   },
   "jest": {
     "moduleFileExtensions": [

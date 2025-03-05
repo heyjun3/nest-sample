@@ -24,7 +24,6 @@ export class AuthorSubscriber implements EntitySubscriberInterface<Author> {
     this.pubsubClient = new PubSub({ projectId: 'gsheet-355401' });
     this.publisher = this.pubsubClient.topic('nest');
     dataSource.subscribers.push(this);
-    setInterval(() => console.warn(this.entityMap.size), 1000);
   }
 
   private addMap(event: SaveEvent<any>) {

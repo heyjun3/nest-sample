@@ -1,3 +1,4 @@
+.PHONY: connect-db
 
 schema-inspect:
 	atlas schema inspect -u "postgres://postgres:postgres@localhost:5433/sample?sslmode=disable" --format '{{ sql . }}'
@@ -23,3 +24,6 @@ apply:
 
 grpc-test:
 	grpcurl -plaintext -d '{"id": "1"}' localhost:5000 api.author.v1.AuthorService/GetAuthor
+
+connect-db:
+	PGPASSWORD=postgres psql -d sample -h localhost -U postgres -p 5433
