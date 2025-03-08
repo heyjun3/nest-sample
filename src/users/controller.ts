@@ -1,5 +1,5 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { USER_REPOSITORY, UserRepository } from './user.model';
+import { USER_REPOSITORY, UserRepository } from './user.repository';
 import { randomUUID } from 'crypto';
 
 @Controller('user')

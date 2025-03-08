@@ -19,8 +19,7 @@ import { ReleaseFilter } from './exceptionFilter/releaseFilter';
 import { AuthorSubscriber } from './database/subscriber';
 import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
 import { MessageHandler } from './handler/pubsubHandler';
-import { User, UserRepository, UserRepositoryModule } from './users/user.model';
-import { UserController } from './users/controller';
+import { User, UserRepositoryModule, UserController } from './users';
 
 @Module({
   imports: [
