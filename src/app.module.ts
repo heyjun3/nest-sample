@@ -20,6 +20,7 @@ import { AuthorSubscriber } from './database/subscriber';
 import { YogaDriver, YogaDriverConfig } from '@graphql-yoga/nestjs';
 import { MessageHandler } from './handler/pubsubHandler';
 import { User, UserRepositoryModule, UserController } from './users';
+import { BookModule } from './book/book.resolver';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { User, UserRepositoryModule, UserController } from './users';
     QueryRunnerModule,
     AuthorRepositoryModule,
     UserRepositoryModule,
+    BookModule,
   ],
   controllers: [UserController],
   providers: [
