@@ -28,9 +28,16 @@ input PostInput {
   offset: Int!
 }
 
+type Book {
+  name: String!
+  price: Int!
+  comment(input: String!): String!
+}
+
 type Query {
   author(input: AuthorInput!): Author!
   authors: [Author!]!
+  books: [Book!]!
 }
 
 input AuthorInput {
